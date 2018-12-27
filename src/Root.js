@@ -1,13 +1,18 @@
 import React from 'react'
 import { Provider } from 'react-redux'
+import reduxPromise from 'redux-promise'
 import { createStore, compose, applyMiddleware } from 'redux'
 import reducers from 'reducers'
 
 const enhancedComposer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-const store = createStore(reducers, enhancedComposer(applyMiddleware()))
 
-export default (props) => (
+export default ({children, initialState={}}) => {
+    const store = createStore (
+        reducers, initialState, 
+        enhancedComposer(applyMiddleware(reduxPromise))
+    )
+    return (
     <Provider store={store}>
-        {props.children}
+        {children}
     </Provider>
-)
+)}

@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { saveComment } from '../actions'
+import { saveComment, fetchComments } from '../actions'
 
 const mapStateToProps = (state) => {
     return {
@@ -8,7 +8,7 @@ const mapStateToProps = (state) => {
     }
 } 
 
-export default connect(mapStateToProps, { saveComment })(
+export default connect(mapStateToProps, { saveComment, fetchComments })(
     class CommentBox extends React.Component {
     
         state = {
@@ -33,6 +33,7 @@ export default connect(mapStateToProps, { saveComment })(
                     <div>
                         <button>Submit comment</button>
                     </div>
+                    <button className="fetch-comments" onClick={this.props.fetchComments}>Fetch Comments</button>
                 </form>
             )
         }
